@@ -1,0 +1,75 @@
+{
+  "name": "webext",
+  "displayName": "WebExt",
+  "version": "0.0.3",
+  "description": "Fast copy a Degit command path in github repository page",
+  "author": "AliuQ",
+  "scripts": {
+    "dev": "esno build.ts -t chromium,firefox",
+    "dev:chromium": "esno build.ts -t chromium",
+    "dev:firefox": "esno build.ts -t firefox",
+    "build": "npm run clear & esno build.ts -t chromium,firefox -p",
+    "build:chromium": "esno build.ts -t chromium -p",
+    "build:firefox": "esno build.ts -t firefox -p",
+    "pack": "run-p pack:chromium:* & run-p pack:firefox:*",
+    "pack:chromium:zip": "web-ext build -a ./.output -s ./extension/chromium -n chromium.zip -o",
+    "pack:chromium:crx": "crx pack extension/chromium -o ./.output/chromium.crx",
+    "pack:chromium:xpi": "web-ext build -a ./.output -s ./extension/chromium -n chromium.xpi -o",
+    "pack:firefox:zip": "web-ext build -a ./.output -s ./extension/firefox -n firefox.zip -o",
+    "pack:firefox:crx": "crx pack extension/firefox -o ./.output/firefox.crx",
+    "pack:firefox:xpi": "web-ext build -a ./.output -s ./extension/firefox -n firefox.xpi -o",
+    "start:chromium": "web-ext run -s ./extension/chromium --target chromium --args='--auto-open-devtools-for-tabs' --args='--start-maximized'",
+    "start:firefox": "web-ext run -s ./extension/firefox --firefox firefox.exe --browser-console",
+    "start:all": "concurrently -n Chromium,Firefox -c blue.bold,yellow.bold \"pnpm start:chromium\" \"pnpm start:firefox\"",
+    "clear": "rimraf extension/chromium extension/firefox extension/__COMMON__ .output",
+    "lint": "eslint 'src/**/*.{json,ts,js,vue}'",
+    "lint:firefox": "web-ext lint -s ./extension/firefox",
+    "release": "npx bumpp --commit --tag --push"
+  },
+  "homepage": "https://github.com/aliuq/degit-webext",
+  "bugs": "https://github.com/aliuq/degit-webext/issues",
+  "devDependencies": {
+    "@aliuq/eslint-config": "^0.0.2",
+    "@iconify/json": "^2.1.28",
+    "@types/fs-extra": "^9.0.13",
+    "@types/node": "^17.0.23",
+    "@types/webextension-polyfill": "^0.8.3",
+    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@vitejs/plugin-vue": "^2.3.1",
+    "@vue/compiler-sfc": "^3.2.32",
+    "@vueuse/core": "^8.2.5",
+    "chokidar": "^3.5.3",
+    "concurrently": "^7.1.0",
+    "crx": "^5.0.1",
+    "eslint": "^8.13.0",
+    "esno": "^0.14.1",
+    "fs-extra": "^10.0.1",
+    "kolorist": "^1.5.1",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.6.3",
+    "unbuild": "^0.7.4",
+    "unplugin-auto-import": "^0.7.1",
+    "unplugin-icons": "^0.14.1",
+    "unplugin-vue-components": "^0.19.2",
+    "vite": "^2.9.4",
+    "vite-plugin-windicss": "^1.8.4",
+    "vue": "^3.2.32",
+    "vue-demi": "^0.12.5",
+    "web-ext": "^6.8.0",
+    "webext-bridge": "^5.0.4",
+    "webextension-polyfill": "^0.9.0"
+  },
+  "browserslist": [
+    "chrome 52",
+    "firefox 48"
+  ],
+  "webExt": {
+    "verbose": false,
+    "run": {
+      "startUrl": [
+        "https://github.com/vuejs/core"
+      ]
+    }
+  }
+}

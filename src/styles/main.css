@@ -1,0 +1,25 @@
+html,
+body,
+#app {
+  margin: 0;
+  padding: 0;
+}
+
+a, a:active, a:visited {
+  color: inherit;
+}
+
+.btn {
+  @apply px-4 py-1 rounded inline-block bg-gray-600 text-gray-200 cursor-pointer hover:bg-gray-700 border-0 outline-none;
+}
+
+.icon-btn {
+  @apply inline-block cursor-pointer select-none
+    opacity-75 transition duration-200 ease-in-out
+    hover:opacity-100 hover:text-teal-600;
+  font-size: 0.9em;
+}
+
+textarea {
+  @apply w-full outline-none resize-y bg-transparent border-gray-400/40 text-white px-2 py-1 my-4;
+}
